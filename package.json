@@ -15,7 +15,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-query-boolean": "^2.0.0",
-    "json2emap": "github:rheniumNV/json2emap",
+    "json2emap": "git+https://github.com/rheniumNV/json2emap.git",
     "lodash": "^4.17.21"
   }
 }
