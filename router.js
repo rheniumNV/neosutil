@@ -1,5 +1,6 @@
 const { getJsonToEmap, postJsonToEmap } = require("./apps/emap");
 const { getUsers, getUsersInPublic } = require("./apps/users");
+const { getEventCalender1Week } = require("./apps/calender");
 
 const wrap = (path, fn) => [
   path,
@@ -13,4 +14,5 @@ module.exports = (app) => {
   app.post(...wrap("/emap/json2emap", postJsonToEmap));
   app.get(...wrap("/users/find", getUsers));
   app.get(...wrap("/api/publicUsers", getUsersInPublic));
+  app.get(...wrap("/api/calender/1week", getEventCalender1Week));
 };
