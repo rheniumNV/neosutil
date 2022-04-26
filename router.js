@@ -1,7 +1,7 @@
 const { getJsonToEmap, postJsonToEmap } = require("./apps/emap");
 const { getUsers, getUsersInPublic } = require("./apps/users");
 const { getEventCalender1Week } = require("./apps/calender");
-const { getLatestItem } = require("./apps/items");
+const { apiGetItems, apiGetLatestItem } = require("./apps/items");
 const { searchVideo } = require("./apps/youtube/index");
 
 const wrap = (path, fn) => [
@@ -23,7 +23,8 @@ module.exports = (app) => {
   app.get(...wrap("/api/users/publicUsers", getUsersInPublic));
   app.get(...wrap("/api/calender/1week", getEventCalender1Week));
 
-  app.get(...wrap("/api/v1/items/latest", getLatestItem));
+  app.get(...wrap("/api/v1/items", apiGetItems));
+  app.get(...wrap("/api/v1/items/latest", apiGetLatestItem));
 
   app.get(...wrap("/api/v1/video/search", searchVideo));
 };
