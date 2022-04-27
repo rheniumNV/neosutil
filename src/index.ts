@@ -2,6 +2,18 @@ import express from "express";
 import bodyParser from "body-parser";
 import boolParser from "express-query-boolean";
 import router from "./router";
+import expressRedisCache from "express-redis-cache";
+import parseDatabaseUrl from "parse-database-url";
+
+const redisConfig = parseDatabaseUrl(
+  process.env.REDIS_URL || "redis://@localhost:6379"
+);
+const cache = expressRedisCache({
+  expire: 60,
+  host: redisConfig.host,
+  port: redisConfig.port,
+  auth_pass: redisConfig.password,
+});
 
 const app = express();
 
@@ -9,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(boolParser());
 
-router(app);
+router(app, cache);
 
 app.use(
   (

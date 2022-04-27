@@ -1,2 +1,1 @@
-declare function parseObject(): any {};
-export = parseObject;
+export default function parseObject(): any {}
