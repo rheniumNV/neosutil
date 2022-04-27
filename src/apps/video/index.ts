@@ -7,7 +7,8 @@ type Platform = "YOUTUBE" | "NICONICO";
 const YOUTUBE: "YOUTUBE" = "YOUTUBE";
 const NICONICO: "NICONICO" = "NICONICO";
 
-const apiYoutubeKey: string = process.env.YOUTUBE_TOKEN || "";
+const apiYoutubeKeys: string[] = JSON.parse(process.env.YOUTUBE_TOKEN ?? "[]");
+let apiYoutubeKeyIndex: number = 0;
 
 type SearchOption = {
   word: string;
@@ -29,9 +30,13 @@ type VideoItem = {
 
 async function searchYoutube(option: SearchOption): Promise<VideoItem[]> {
   const { word, maxResult } = option;
+
+  const apiKey = _.get(apiYoutubeKeys, apiYoutubeKeyIndex);
+  apiYoutubeKeyIndex = (apiYoutubeKeyIndex + 1) % apiYoutubeKeys.length;
+
   const url = `https://www.googleapis.com/youtube/v3/search?type=video&part=snippet&q=${encodeURIComponent(
     word
-  )}&maxResults=${maxResult}&key=${apiYoutubeKey}`;
+  )}&maxResults=${maxResult}&key=${apiKey}`;
   const response = await axios(url);
   const items = _(response.data.items)
     .map((item) => {
