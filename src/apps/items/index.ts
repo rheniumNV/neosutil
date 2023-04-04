@@ -3,7 +3,7 @@ import _ from "lodash";
 import json2emap from "json2emap";
 import express from "express";
 
-const NEOS_API_BASE_URL = "https://api.neos.com/";
+const NEOS_API_BASE_URL = "https://apiproxy.neos.love/";
 
 type OwnerType = "users" | "groups";
 type RecordType = "object" | "directory" | "link";
